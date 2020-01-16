@@ -1,6 +1,7 @@
 # Nighten Api Client
 
 [![Latest Stable Version](https://poser.pugx.org/nighten/api-client/v/stable)](https://packagist.org/packages/nighten/api-client)
+[![Build Status](https://travis-ci.org/nighten/api-client.svg?branch=master)](https://travis-ci.org/nighten/api-client)
 [![License](https://poser.pugx.org/nighten/api-client/license)](https://packagist.org/packages/nighten/api-client)
 
 ## Описание
