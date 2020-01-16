@@ -1,5 +1,8 @@
 # Nighten Api Client
 
+[![Latest Stable Version](https://poser.pugx.org/nighten/api-client/v/stable)](https://packagist.org/packages/nighten/api-client)
+[![License](https://poser.pugx.org/nighten/api-client/license)](https://packagist.org/packages/nighten/api-client)
+
 ## Описание
 
 Библиотека для взаимодействия с API
