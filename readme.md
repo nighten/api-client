@@ -2,6 +2,8 @@
 
 [![Latest Stable Version](https://poser.pugx.org/nighten/api-client/v/stable)](https://packagist.org/packages/nighten/api-client)
 [![Build Status](https://travis-ci.org/nighten/api-client.svg?branch=master)](https://travis-ci.org/nighten/api-client)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/nighten/api-client/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/nighten/api-client/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/nighten/api-client/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/nighten/api-client/?branch=master)
 [![License](https://poser.pugx.org/nighten/api-client/license)](https://packagist.org/packages/nighten/api-client)
 
 ## Описание
