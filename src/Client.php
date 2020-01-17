@@ -20,6 +20,8 @@ class Client
 
     private ?LoggerInterface $logger;
 
+    private ?AuthenticationProviderInterface $authenticationProvider = null;
+
     /**
      * Client constructor.
      * @param string $host
@@ -31,12 +33,10 @@ class Client
         string $host,
         ?ClientInterface $httpClient = null,
         ?ResponseHandlerInterface $responseHandler = null,
-        ?LoggerInterface $logger = null)
-    {
+        ?LoggerInterface $logger = null
+    ) {
         $this->host = preg_replace('#/$#', '', $host);
-        $this->httpClient = $httpClient ?
-            $httpClient :
-            new \GuzzleHttp\Client();
+        $this->httpClient = $httpClient ?: new \GuzzleHttp\Client();
         $this->responseHandler = $responseHandler;
         $this->logger = $logger;
     }
@@ -47,6 +47,11 @@ class Client
     public function setLogger(LoggerInterface $logger): void
     {
         $this->logger = $logger;
+    }
+
+    public function setAuthenticationProvider(AuthenticationProviderInterface $authenticationProvider): void
+    {
+        $this->authenticationProvider = $authenticationProvider;
     }
 
     /**
@@ -96,23 +101,10 @@ class Client
         if ($this->timeout !== null) {
             $options['timeout'] = $this->timeout;
         }
+        if ($this->authenticationProvider instanceof AuthenticationProviderInterface) {
+            $options['headers']['Authorization'] = $this->authenticationProvider->getKey();
+        }
         return $options;
-    }
-
-    /**
-     * @param ClientInterface $httpClient
-     */
-    public function setHttpClient(ClientInterface $httpClient): void
-    {
-        $this->httpClient = $httpClient;
-    }
-
-    /**
-     * @return ClientInterface
-     */
-    public function getHttpClient(): ClientInterface
-    {
-        return $this->httpClient;
     }
 
     /**
@@ -128,5 +120,21 @@ class Client
             return $request->getResponseHandler();
         }
         return new DefaultResponseHandler();
+    }
+
+    /**
+     * @return ClientInterface
+     */
+    public function getHttpClient(): ClientInterface
+    {
+        return $this->httpClient;
+    }
+
+    /**
+     * @param ClientInterface $httpClient
+     */
+    public function setHttpClient(ClientInterface $httpClient): void
+    {
+        $this->httpClient = $httpClient;
     }
 }

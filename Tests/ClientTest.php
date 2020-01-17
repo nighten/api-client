@@ -2,6 +2,8 @@
 
 namespace Nighten\ApiClient\Tests;
 
+use Nighten\ApiClient\AuthenticationProviderInterface;
+use Nighten\ApiClient\DefaultAuthenticationProvider;
 use Nighten\ApiClient\Response\DefaultClientResponse;
 use Nighten\ApiClient\Tests\Mock\TestHttpClient;
 use Nighten\ApiClient\Tests\Mock\TestLogger;
@@ -29,6 +31,11 @@ class ClientTest extends TestCase
         $this->assertEquals('method', $this->httpClient->getMethod());
         $this->assertEquals(self::HOST . '/path', $this->httpClient->getUri());
         $this->assertEquals(['body' => 'raw body'], $this->httpClient->getOptions());
+    }
+
+    private function getTestRequest(): TestRequest
+    {
+        return new TestRequest('/path', 'raw body', 'method');
     }
 
     public function testWithSlashInHost(): void
@@ -96,9 +103,14 @@ class ClientTest extends TestCase
         $this->assertTrue($response['test_response_handler']);
     }
 
-    private function getTestRequest(): TestRequest
+    public function testAuthentication(): void
     {
-        return new TestRequest('/path', 'raw body', 'method');
+        $this->client->setAuthenticationProvider(new DefaultAuthenticationProvider('api-key'));
+        $this->client->request($this->getTestRequest());
+        $options = $this->httpClient->getOptions();
+        $this->assertArrayHasKey('headers', $options);
+        $this->assertArrayHasKey('Authorization', $options['headers']);
+        $this->assertEquals('api-key', $options['headers']['Authorization']);
     }
 
     public function setUp(): void

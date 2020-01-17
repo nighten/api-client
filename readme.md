@@ -29,6 +29,12 @@ $response->getUserId(); //Уникальный идентификатор пол
 $response->getKey(); //Api ключ, для аунтификации в запросах требующих ключ.
 ```
 
+### Запросы требующие ключ
+```php
+$client->setAuthenticationProvider(new DefaultAuthenticationProvider('api-key'));
+$response = $client->request(...);
+```
+
 ## Лицензия
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) file for details
